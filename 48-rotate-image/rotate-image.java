@@ -5,9 +5,8 @@ class Solution {
 
 
         // transpose 
-        for(int i = 0; i<row; i++){
-            for(int j = i+1; j<col; j++){
-                //swap
+        for(int i = 0; i < row; i++){
+            for(int j = i + 1; j < col; j++){
                 int temp = matrix[i][j];
                 matrix[i][j] = matrix[j][i];
                 matrix[j][i] = temp;
@@ -16,14 +15,13 @@ class Solution {
 
 
         //reverse 
-        for(int i = 0; i<row; i++){
-            for(int j = 0; j<col/2; j++){
-                //swap
-                int temp = matrix[i][j];
-                matrix[i][j] = matrix[i][col-1-j];
-                matrix[i][col-1-j] = temp;
-            }
+       for(int i = 0; i < row; i++){
+        for(int j =0; j < row / 2; j++ ){
+            int temp = matrix[i][j];
+            matrix[i][j] = matrix[i][row-j-1];
+            matrix[i][row-j-1] = temp;
         }
-
+       }
+       
     }
 }
