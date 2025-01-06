@@ -1,23 +1,24 @@
 class Solution {
-    public int maxArea(int[] height) {
-         int max = 0;
-        int left_pointer = 0;
-        int right_pointer = height.length - 1;
-        
-        while (left_pointer < right_pointer) {
-            int high = Math.min(height[left_pointer], height[right_pointer]);
-            int width = right_pointer - left_pointer;
-            int area = high * width;
+    public int maxArea(int[] nums) {
+        int n = nums.length;
+        int left = 0;
+        int right = n-1;
+        int max = Integer.MIN_VALUE;
 
-            max = Math.max(max, area);
+        while(right > left){
+            int left_stick = nums[left];
+            int right_stick = nums[right];
+            int area = Math.min(left_stick, right_stick) * (right - left);
 
-            if (height[left_pointer] < height[right_pointer]) {
-                left_pointer++;
-            } else {
-                right_pointer--;
+            max = Math.max(area, max);
+
+            if(left_stick > right_stick){
+                right--;
+            }else{
+                left++;
             }
         }
-        
+
         return max;
     }
 }
