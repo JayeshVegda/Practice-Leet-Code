@@ -9,50 +9,34 @@
  * }
  */
 class Solution {
-    // public static int getsize(ListNode head){
-    //     ListNode temp = head;
-    //     int counter = 0;
-    //     while(temp != null){
-    //         temp = temp.next;
-    //         counter++;
-    //     }
-    //     return counter;
-    // }
-
-    public ListNode removeNthFromEnd(ListNode head, int n) {
-
-        // if(head.next == null){
-        //     head = null;
-        //     return head;
-        // }
-
-
-        ListNode temp = head;
+    public int getLength(ListNode head){
         int counter = 0;
-        while(temp.next != null){
-            temp = temp.next;
+        while(head != null){
+            head = head.next;
             counter++;
         }
-        counter+=1;
 
-        if(counter - n == 0){
-            head = head.next;
-            return head;
+        return counter;
+    }
+
+    public ListNode removeNthFromEnd(ListNode head, int n) 
+    {
+        if(head == null || head.next == null) return null;
+        ListNode temp = head;
+        int size = getLength(head);
+
+        if(n == size){
+            return head.next;
         }
 
-
-        int size = counter - n;
-        int i = 0;
-        ListNode finder = head;
-        while(i < size-1)
-        {
-            finder = finder.next;
-            i+=1;
+        for(int  i = 0; i < (size-n-1); i++){
+            temp = temp.next;
         }
 
-        finder.next = finder.next.next;
+        temp.next =  temp.next.next;
 
         return head;
-        
+
+
     }
 }
