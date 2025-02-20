@@ -9,59 +9,49 @@
  * }
  */
 class Solution {
+    public ListNode mid(ListNode head){
+        ListNode slow = head;
+        ListNode fast = head;
 
-    public static ListNode findmid(ListNode head){
-
-        if(head == null){
-            return null;
-        }
-        ListNode faster = head;
-        ListNode slower = head;
-
-        while(faster != null && faster.next != null){
-            slower = slower.next;
-            faster = faster.next.next;
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
         }
 
-        return slower;
+        return slow;
     }
-    public boolean isPalindrome(ListNode head) {
-        // base case
-        if(head == null || head.next == null){
-            return true;
-        }
 
+    public ListNode rev(ListNode head){
+        if(head == null || head.next == null) return head;
 
-        //step 1 - find mid
-        ListNode middle = findmid(head);
+        ListNode reverse = rev(head.next);
 
+        head.next.next = head;
+        head.next = null;
 
-        //stap 2 - reverse mid+1
-        ListNode prev = null;
-        ListNode curr = middle;
-        ListNode next;
-        while(curr != null){
-            next = curr.next;
-            curr.next = prev;
-            prev = curr;
-            curr = next;
-        }
+        return reverse;
+    }
 
+    public boolean isPalindrome(ListNode head) 
+    {
+        if(head == null || head.next == null) return true;
 
-        //step 3 - check lp == rp
-        ListNode right = prev;
-        ListNode left = head;
+        ListNode midPoint = mid(head);
+        ListNode revList =rev(midPoint);
 
-        while(right!=null){
-            if(left.val  != right.val){
+        ListNode t1 = head;
+        ListNode t2 = revList;
+
+        while(t2 != null){
+            if(t1.val != t2.val)
+            {
                 return false;
             }
 
-            left = left.next;
-            right = right.next;
+            t1 = t1.next;
+            t2 = t2.next;
         }
-    
-        return true;
 
+        return true;
     }
 }
