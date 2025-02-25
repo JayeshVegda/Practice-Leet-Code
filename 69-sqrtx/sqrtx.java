@@ -1,7 +1,14 @@
 class Solution {
     public int mySqrt(int x) {
+        if(x == 1) return 1;
         int left = 0;
-        int right = x ;
+        int right = 0;
+        if(x > 10){
+             right = x / 3 ;
+        }else{
+             right = x / 2;
+        }
+        
         int ans = -1;
 
         while(left <= right){
