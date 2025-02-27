@@ -1,14 +1,17 @@
 class Solution {
 
-    public boolean isPossible(int[] piles, int speed, int target){
+    public boolean isPossible(int[] piles, int speed, int target)
+    {
         int n = piles.length;
-        long sum = 0;
-        for(int pile : piles){
-            sum +=  pile/ speed;
+        long sum = 0; // sum = 0 
+        for(int pile : piles)
+        {
+            sum +=  pile/ speed; // 3 / 5  = 0
+            
             if(pile % speed != 0) sum=sum+1;
         }
 
-        return (sum <= target) ? true : false;
+        return (sum <= target) ? true : false; // 5 
     }
 
     public int findMax(int[] piles){
@@ -27,9 +30,9 @@ class Solution {
         int ans = -1;
 
         while(left <= right){
-            int mid = left + (right - left) / 2;
+            int mid = left + (right - left) / 2; // 5
 
-            if(isPossible(piles, mid, h))
+            if(isPossible(piles, mid, h)) // speed 5 
             {
                 ans = mid;
                 right = mid - 1;
