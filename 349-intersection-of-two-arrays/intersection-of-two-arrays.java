@@ -4,7 +4,7 @@ class Solution {
 
         //first loop;
         for(int i : nums1){
-            mpp.put(i, mpp.getOrDefault(i, 0) + 1);
+            mpp.put(i, 1);
         }
 
         int[] output = new int[nums1.length + nums2.length];
