@@ -1,33 +1,24 @@
 class Solution {
-    public static String sort(String str){
-         char[] charArray = str.toCharArray();
-         Arrays.sort(charArray);
-        
-        StringBuilder sortedString = new StringBuilder();
-        for (char c : charArray) {
-            sortedString.append(c);
-        }
+    public String sort(String str){
+        char[] cStr = str.toCharArray();
+        Arrays.sort(cStr);
 
-        return sortedString.toString();
+        return String.copyValueOf(cStr);
 
     }
     public List<List<String>> groupAnagrams(String[] strs) {
-        // List<List<String>> listOfLists = new ArrayList<>();
+        HashMap<String, List<String>> mpp = new HashMap<>();
 
-        HashMap<String, ArrayList<String>> mpp = new HashMap<>();
+        for(String str : strs){
+            String key = sort(str);
 
-        for(int i = 0; i < strs.length; i++){
-            String mystr = sort(strs[i]);
-            if (!mpp.containsKey(mystr)) {
-                mpp.put(mystr, new ArrayList<>());
-                mpp.get(mystr).add(strs[i]);
+            if(!mpp.containsKey(key)){
+                mpp.put(key, new ArrayList<>(List.of(str)));
             }else{
-                mpp.get(mystr).add(strs[i]);
+                mpp.get(key).add(str);
             }
         }
 
-        List<List<String>> listOfLists = new ArrayList<>(mpp.values());
-        System.out.println(listOfLists);
-        return listOfLists;
+        return new ArrayList<>(mpp.values());
     }
 }
