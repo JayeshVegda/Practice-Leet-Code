@@ -8,24 +8,25 @@ class Solution {
             if(rem < 0) rem = rem + k;
             mpp.put(rem, mpp.getOrDefault(rem, 0) + 1);
         }
-        int counter = 0;
 
         for(int rem : mpp.keySet())
         {
             int finder = k - rem;
             if(rem == 0) {
                 if(mpp.get(rem) % 2 != 0) return false;
-            }else if(mpp.containsKey(finder))
+            }
+            else 
             {
-                int rem_freq = mpp.get(rem);
-                int finder_freq = mpp.get(finder);
+                int compRem = k - rem;
 
-                if(rem_freq != finder_freq) return false;
-            }else{
-                return false;
+                if (!mpp.containsKey(compRem))  return false;
+
+                if (!mpp.get(rem).equals(mpp.get(compRem))) 
+                {
+                    return false;
+                }
             }
         }
-
         return true;
     }
 }
