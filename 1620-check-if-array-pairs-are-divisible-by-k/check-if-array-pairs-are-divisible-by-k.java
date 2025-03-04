@@ -4,7 +4,8 @@ class Solution {
         HashMap<Integer, Integer> mpp = new HashMap<>();
 
         for(int num : arr){
-            int rem = ((num % k) + k) % k;
+            int rem = num % k;
+            if(rem < 0) rem = rem + k;
             mpp.put(rem, mpp.getOrDefault(rem, 0) + 1);
         }
         int counter = 0;
