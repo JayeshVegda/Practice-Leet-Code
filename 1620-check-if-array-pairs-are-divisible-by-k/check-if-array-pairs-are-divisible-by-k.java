@@ -11,8 +11,8 @@ class Solution {
 
         for(int rem : mpp.keySet())
         {
-            int finder = k - rem;
             if(rem == 0) {
+            int finder = k - rem;
                 if(mpp.get(rem) % 2 != 0) return false;
             }
             else 
