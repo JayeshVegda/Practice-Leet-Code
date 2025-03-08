@@ -24,6 +24,7 @@ class Solution {
                 
                 int w = mpp.getOrDefault('W', 0);
                 int b = mpp.getOrDefault('B', 0);
+
                 if((b+w) == k)
                 {
                     char chv = 'W';
@@ -31,6 +32,7 @@ class Solution {
                     max = Math.min(white, max);
                     break;
                 }
+
             }
 
 
@@ -49,11 +51,6 @@ class Solution {
 
                 if (count < k) {
                     break;
-                }
-
-                if (count == k) {
-                    int whiteCount = mpp.getOrDefault('W', 0);
-                    max = Math.min(whiteCount, max);
                 }
             
             }
