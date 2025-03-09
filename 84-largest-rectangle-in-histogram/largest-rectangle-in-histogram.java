@@ -33,7 +33,6 @@ class Solution
 
         return prevSmaller;
     }
-
     public int largestRectangleArea(int[] arr) 
     {
 
