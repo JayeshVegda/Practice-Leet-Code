@@ -9,25 +9,14 @@ class Solution {
 
         for(char ch : s.toCharArray())
         {
-            if(open.contains(ch))
+            if(open.contains(ch))  stk.push(ch);
+            else
             {
-                stk.push(ch);
-            }else {
-                    if(stk.isEmpty())  return false;
-                      
-                    if(ch == ']' && stk.peek() == '[') 
-                    {
-                        stk.pop();
-                    }
-                    else if(ch == '}' && stk.peek() == '{') {
-                        stk.pop();
-                    }
-                    else if(ch == ')' && stk.peek() == '(') {
-                        stk.pop();
-                    }else {
-                        return false;
-                    }
-
+                if(stk.isEmpty())  return false;  
+                if(ch == ']' && stk.peek() == '[') stk.pop();
+                else if(ch == '}' && stk.peek() == '{') stk.pop();
+                else if(ch == ')' && stk.peek() == '(') stk.pop();
+                else return false;
             }
         }
 
