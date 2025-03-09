@@ -1,43 +1,37 @@
-
 class Solution {
-    public static boolean isValid(String s) 
-    {   
-        String expr = s;
-       Deque<Character> stack = new ArrayDeque<Character>();
+    public boolean isValid(String s) 
+    {
+        Stack<Character> stk = new Stack<>();
+        HashSet<Character> open = new HashSet<>();
+        open.add('(');
+        open.add('{');
+        open.add('[');
 
-		// Traversing the Expression
-		for (int i = 0; i < expr.length(); i++) {
-			char x = expr.charAt(i);
+        for(char ch : s.toCharArray())
+        {
+            if(open.contains(ch))
+            {
+                stk.push(ch);
+            }else {
+                    if(stk.isEmpty())  return false;
+                      
+                    if(ch == ']' && stk.peek() == '[') 
+                    {
+                        stk.pop();
+                    }
+                    else if(ch == '}' && stk.peek() == '{') {
+                        stk.pop();
+                    }
+                    else if(ch == ')' && stk.peek() == '(') {
+                        stk.pop();
+                    }else {
+                        return false;
+                    }
 
-			if (x == '(' || x == '[' || x == '{') {
-				stack.push(x);
-				continue;
-			}
-			if (stack.isEmpty())
-				return false;
-			char check;
-			switch (x) 
-			{
-			case ')':
-				check = stack.pop();
-				if (check == '{' || check == '[')
-					return false;
-				break;
+            }
+        }
 
-			case '}':
-				check = stack.pop();
-				if (check == '(' || check == '[')
-					return false;
-				break;
-
-			case ']':
-				check = stack.pop();
-				if (check == '(' || check == '{')
-					return false;
-				break;
-			}
-		}
-
-		// Check Empty Stack
-		return (stack.isEmpty());
-}}
+        return stk.isEmpty() ? true : false;
+        
+    }
+}
