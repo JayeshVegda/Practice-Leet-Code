@@ -36,7 +36,7 @@ class Solution {
                     break;
                 }
                 
-                // Update result with current valid window
+                // Update result
                 res = Math.max(res, windowSize);
             }
 
@@ -46,12 +46,8 @@ class Solution {
                 b2 = true;
 
                 char ch = s.charAt(j);
-                mpp.put(ch, mpp.get(ch) - 1);
-                
-                // Remove entry if count becomes 0
-                if(mpp.get(ch) == 0) {
-                    mpp.remove(ch);
-                }
+                if(mpp.get(ch) == 1) mpp.remove(ch);
+                else mpp.put(ch, mpp.get(ch) - 1);
                 
                 int curr_max = maxFreq(mpp);
                 int windowSize = i - j;
@@ -63,7 +59,6 @@ class Solution {
                 }
             }
             
-            // Exit condition: no more progress possible
             if(!b1 && !b2) break;
         }
 
