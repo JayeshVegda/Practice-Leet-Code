@@ -19,9 +19,6 @@ class Solution {
             if(arr[i] > 0) return false;
         }
 
-        System.out.println(Arrays.toString(diff));
-        System.out.println(Arrays.toString(arr));
-        System.out.println(sum);
         return true;
 
     }
