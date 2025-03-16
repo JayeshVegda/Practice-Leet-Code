@@ -1,24 +1,27 @@
 class Solution {
-    public int maxArea(int[] nums) {
-        int n = nums.length;
+    public int maxArea(int[] arr) {
+        int n = arr.length;
+
         int left = 0;
-        int right = n-1;
-        int max = Integer.MIN_VALUE;
+        int right = n - 1;
+        int res = 0;
+        while(left < right){
+            int lval = arr[left];
+            int rval = arr[right];
 
-        while(right > left){
-            int left_stick = nums[left];
-            int right_stick = nums[right];
-            int area = Math.min(left_stick, right_stick) * (right - left);
+            int min = Math.min(lval, rval);
 
-            max = Math.max(area, max);
+            // calc Area
+            int area = min * (right - left);
+            res = Math.max(area, res);
 
-            if(left_stick > right_stick){
-                right--;
-            }else{
+            if(min == lval){
                 left++;
+            }else{
+                right--;
             }
         }
 
-        return max;
+        return res;
     }
 }
