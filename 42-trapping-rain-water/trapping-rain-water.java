@@ -1,30 +1,29 @@
 class Solution {
-    public int trap(int[] arr) {
-        int n = arr.length;
-        int[] leftMax = new int[n];
-        int[] rightMax = new int[n];
+    public int trap(int[] arr) 
+    {
+        int total = 0;
+        int l = 0, r = arr.length - 1;
+        int lmax = 0, rmax = arr[r];
 
-        leftMax[0] = arr[0];
-        rightMax[n-1] = arr[n-1];
-        // fill leftMax
-        for(int i = 1; i < n; i++){
-            leftMax[i] = Math.max(leftMax[i-1], arr[i]);
-        }
+        while(l < r){
+            if(arr[l] <= arr[r]){
+                if(arr[l] < lmax){
+                    total = total + lmax - arr[l];
+                }else{
+                    lmax = arr[l];
+                }
+                l++;
+            }else{
+                if(arr[r] < rmax){
+                    total = total + rmax - arr[r];
+                }else{
+                    rmax = arr[r];
+                }
 
-        //fill right
-        for(int i = n -2; i >= 0; i--){
-            rightMax[i] = Math.max(rightMax[i+1], arr[i]);
-        }
-
-        int trapped = 0;
-        for(int i = 0; i < n; i++){
-            int water_trapped = Math.min(leftMax[i], rightMax[i]) - arr[i] ;
-            if(water_trapped >= 0){
-                trapped += water_trapped;
+                r--;
             }
         }
 
-        return trapped;
-
+        return total;
     }
 }
