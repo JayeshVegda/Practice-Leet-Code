@@ -1,15 +1,15 @@
 class Solution {
     public boolean divideArray(int[] nums) {
-        HashMap<Integer, Integer> mpp = new HashMap<>();
+        int[] freq = new int[500+1];
 
         for(int num : nums){
-            mpp.put(num, mpp.getOrDefault(num, 0) + 1);
+            freq[num]++;
         }
-
         int count = 0;
-        for(int key : mpp.keySet()){
-            int freq = mpp.get(key) / 2;
-            count += freq;
+        for(int key : freq){
+            if(key != 0){
+                count = count + (key/2);
+            }
         }
 
         return ( (count) == (nums.length/2)) ? true : false;
