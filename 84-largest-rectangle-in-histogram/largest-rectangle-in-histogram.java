@@ -1,6 +1,6 @@
 class Solution 
 {
-    public static int[] findNextSmallerElements(int[] arr){
+    public static int[] findNextSmaller(int[] arr){
         int n = arr.length;
         int[] nextSmaller = new int[n];
         Stack<Integer> stk = new Stack<>();
@@ -16,7 +16,7 @@ class Solution
 
         return nextSmaller;
     }
-    public static int[] findPrevSmallerElements(int[] arr){
+    public static int[] findPrevSmaller(int[] arr){
         int n = arr.length;
         int[] prevSmaller = new int[n];
         Stack<Integer> stk = new Stack<>();
@@ -39,11 +39,12 @@ class Solution
         int n = arr.length;
         int[] nse = new int[n];
         int[] pse = new int[n];
-
-        nse = findNextSmallerElements(arr);
-        pse = findPrevSmallerElements(arr);
+        nse = findNextSmaller(arr);
+        pse = findPrevSmaller(arr);
+        System.out.println("NEXT SMALLER " + Arrays.toString(nse));
+        System.out.println("PREV SMALLER " + Arrays.toString(pse));
         
-        int max = 0;
+        int max = Integer.MIN_VALUE;
 
         for(int i = 0; i < n; i++){
             int w = nse[i] - pse[i] - 1;
