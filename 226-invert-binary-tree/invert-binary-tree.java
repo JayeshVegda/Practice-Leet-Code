@@ -14,27 +14,20 @@
  * }
  */
 class Solution {
-    // public void isSameTree(TreeNode p, TreeNode q) 
-    // {
-    //     if(p == null &&  q == null) return;
-
-    //     TreeNode temp = p;
-    //     p = q;
-    //     q = temp;
-
-    // }
 
     public TreeNode invertTree(TreeNode root) {
         if(root == null) return null;
 
         // swap
-        TreeNode temp = root.right;
-        root.right = root.left;
-        root.left = temp;
+       
 
         // calling for both
         invertTree(root.left);
         invertTree(root.right);
+
+        TreeNode temp = root.right;
+        root.right = root.left;
+        root.left = temp;
 
         return root;
     }
