@@ -30,16 +30,8 @@ class Solution {
 
     }
 
-    public void callingAll(TreeNode root){
-        if(root == null) return;
-
-        dfs(root);
-        callingAll(root.left);
-        callingAll(root.right);
-    }
-
     public int maxPathSum(TreeNode root) {
-        callingAll(root);
+        dfs(root);
         return maxi;
     }
 }
