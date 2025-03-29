@@ -49,7 +49,7 @@ class Solution {
 
                 mpp.add(rem.val);
             }
-
+            if(mpp.contains(x) && mpp.contains(y) && xParent == yParent) return false;
             if(mpp.contains(x) && mpp.contains(y) && xParent != yParent) return true;
          }
 
