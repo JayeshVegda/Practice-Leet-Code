@@ -21,11 +21,12 @@ class Solution {
          int level = 0;
 
         int xParent = 0;
-        int yParent = 1;
+        int yParent = 0;
 
          while(!q.isEmpty())
          {
-            HashSet<Integer> mpp = new HashSet<>();
+            boolean xAtLevel = false;
+            boolean yAtLevel = false;
 
             int size = q.size();
             while(size-->0)
@@ -46,11 +47,13 @@ class Solution {
                     if(rem.right.val == x) xParent = rem.val;
                     if(rem.right.val == y) yParent = rem.val;
                 }
-
-                mpp.add(rem.val);
+                
+                if(rem.val == x) xAtLevel = true;
+                if(rem.val == y) yAtLevel = true;
             }
-            if (xParent == yParent) return false;
-            if(mpp.contains(x) && mpp.contains(y) && xParent != yParent) return true;
+
+            if(xAtLevel && yAtLevel && xParent != yParent ) return true;
+            
          }
 
 
