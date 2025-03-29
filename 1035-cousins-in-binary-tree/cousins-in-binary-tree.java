@@ -21,7 +21,7 @@ class Solution {
          int level = 0;
 
         int xParent = 0;
-        int yParent = 0;
+        int yParent = 1;
 
          while(!q.isEmpty())
          {
@@ -49,7 +49,7 @@ class Solution {
 
                 mpp.add(rem.val);
             }
-            if(mpp.contains(x) && mpp.contains(y) && xParent == yParent) return false;
+            if (xParent == yParent) return false;
             if(mpp.contains(x) && mpp.contains(y) && xParent != yParent) return true;
          }
 
