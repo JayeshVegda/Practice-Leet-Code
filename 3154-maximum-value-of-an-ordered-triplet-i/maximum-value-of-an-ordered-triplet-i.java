@@ -1,18 +1,21 @@
 class Solution {
     public long maximumTripletValue(int[] nums) 
     {
-        int n = nums.length;
+        // finding biggest one
+        int left = nums[0];
         long maxi = 0;
-        for(int i = 0; i < n; i++){
-            for(int j = i+1; j < n; j++){
-                for(int k = j+1; k < n; k++)
-                {
-      
-                        maxi = Math.max(maxi, (nums[i] - nums[j]) * (long) nums[k]);
-        
-                }
+        for(int mid = 1; mid < nums.length; mid++)
+        {
+            if(nums[mid] > left){
+                left = nums[mid];
+                continue;
             }
-        }    
+            // search 
+            for(int right = mid + 1; right < nums.length; right++){
+                long cal = (left - nums[mid]) * (long) nums[right];
+                maxi = Math.max(maxi, cal);
+            }
+        }
 
         return maxi;
     }
