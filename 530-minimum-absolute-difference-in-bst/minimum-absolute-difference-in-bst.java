@@ -14,21 +14,23 @@
  * }
  */
 class Solution {
-    TreeNode prev = new TreeNode();
+    int prev = (int) -1e8;
     int maxi = Integer.MAX_VALUE;
-    public void dfs(TreeNode root){
+    public void dfs(TreeNode root)
+    {
         if(root == null) return;
 
         dfs(root.left);
-        if(prev != null){
-            maxi = Math.min(maxi, root.val - prev.val);
+
+        if(prev != -1e8){
+            maxi = Math.min(maxi, root.val - prev);
         }
 
-        prev = root;
+        prev = root.val;
         dfs(root.right);
     }
     public int getMinimumDifference(TreeNode root) {
-        prev = null;
+      
         dfs(root);
         return maxi;
     }
