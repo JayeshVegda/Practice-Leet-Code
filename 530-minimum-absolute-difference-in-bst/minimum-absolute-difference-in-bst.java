@@ -22,9 +22,9 @@ class Solution {
 
         dfs(root.left);
 
-        if(prev != -1e8){
+       
             maxi = Math.min(maxi, root.val - prev);
-        }
+     
 
         prev = root.val;
         dfs(root.right);
