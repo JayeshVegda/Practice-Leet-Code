@@ -18,14 +18,14 @@ class Solution {
     public void dfs(TreeNode root){
         if(root == null) return;
 
+        dfs(root.left);
         arr.add(root.val);
 
-        dfs(root.left);
         dfs(root.right);
     }
     public int kthSmallest(TreeNode root, int k) {
         dfs(root);
-        Collections.sort(arr);
+        // Collections.sort(arr);
         return arr.get(k - 1);
     }
 }
