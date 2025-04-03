@@ -15,7 +15,7 @@
  */
 class Solution {
     int prev = (int) -1e8;
-    int maxi = Integer.MAX_VALUE;
+    int maxi = (int) 1e8;
     public void dfs(TreeNode root)
     {
         if(root == null) return;
