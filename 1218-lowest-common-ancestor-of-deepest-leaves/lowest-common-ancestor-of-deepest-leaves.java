@@ -1,21 +1,77 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 class Solution {
-    public TreeNode lcaDeepestLeaves(TreeNode root) {
-        int maxi = maxDepth(root); // maxi is the max depth
-        return dfs(root, maxi, 0);
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(root == null || root == p || root == q)
+        {
+            return root;
+        }
+
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+
+        if(right == null){
+            return left;
+        }
+
+        if(left == null){
+            return right;
+        }
+
+        return root;
     }
-    
-    private TreeNode dfs(TreeNode root, int maxi, int len) {
-        if (root == null) return null;
-        if (maxi - 1 == len) return root;
-        TreeNode left = dfs(root.left, maxi, len + 1);
-        TreeNode right = dfs(root.right, maxi, len + 1);
-        
-        if (left != null && right != null) return root;
-        return left != null ? left : right;
+    public int findLevel(TreeNode root){
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+
+        int level = 0;
+        while(!q.isEmpty()){
+            int size = q.size();
+            while(size-->0){
+                TreeNode rem = q.poll();
+                if(rem.left != null) q.add(rem.left);
+                if(rem.right != null) q.add(rem.right);
+            }
+
+            level++;
+        }   
+
+        return level;
     }
-    
-    private int maxDepth(TreeNode root) {
-        if (root == null) return 0;
-        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+    public TreeNode lcaDeepestLeaves(TreeNode root) 
+    {
+        int lvl = findLevel(root);
+        Deque<TreeNode> q = new LinkedList<>();
+        q.add(root);
+
+        int level = 1;
+        while(!q.isEmpty())
+        {
+            int size = q.size();
+            if(level == lvl) break;
+            while(size-->0){
+                TreeNode rem = q.poll();
+                if(rem.left != null) q.add(rem.left);
+                if(rem.right != null) q.add(rem.right);
+            }
+
+            level++;
+        }   
+
+        TreeNode res = lowestCommonAncestor(root, q.getFirst(), q.getLast());
+        return res;
     }
 }
