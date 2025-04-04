@@ -14,64 +14,31 @@
  * }
  */
 class Solution {
-    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if(root == null || root == p || root == q)
-        {
-            return root;
+    public static class Pair{
+        TreeNode root;
+        int high;
+
+        Pair(){}
+        Pair(TreeNode root, int high){
+            this.root = root;
+            this.high = high;
         }
-
-        TreeNode left = lowestCommonAncestor(root.left, p, q);
-        TreeNode right = lowestCommonAncestor(root.right, p, q);
-
-        if(right == null){
-            return left;
-        }
-
-        if(left == null){
-            return right;
-        }
-
-        return root;
     }
-    public int findLevel(TreeNode root){
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(root);
-
-        int level = 0;
-        while(!q.isEmpty()){
-            int size = q.size();
-            while(size-->0){
-                TreeNode rem = q.poll();
-                if(rem.left != null) q.add(rem.left);
-                if(rem.right != null) q.add(rem.right);
-            }
-
-            level++;
-        }   
-
-        return level;
-    }
-    public TreeNode lcaDeepestLeaves(TreeNode root) 
+    public Pair dfs(TreeNode root)
     {
-        int lvl = findLevel(root);
-        Deque<TreeNode> q = new LinkedList<>();
-        q.add(root);
+        if(root == null){
+            return new Pair(null, 0);
+        }
 
-        int level = 1;
-        while(!q.isEmpty())
-        {
-            int size = q.size();
-            if(level == lvl) break;
-            while(size-->0){
-                TreeNode rem = q.poll();
-                if(rem.left != null) q.add(rem.left);
-                if(rem.right != null) q.add(rem.right);
-            }
+        Pair left = dfs(root.left);
+        Pair right = dfs(root.right);
 
-            level++;
-        }   
-
-        TreeNode res = lowestCommonAncestor(root, q.getFirst(), q.getLast());
-        return res;
+        if(left.high == right.high) return new Pair(root, left.high + 1);
+        else if(left.high > right.high) return new Pair(left.root, left.high + 1);
+        else return new Pair(right.root, right.high + 1);
+    }
+    public TreeNode lcaDeepestLeaves(TreeNode root) {
+        Pair d = dfs(root);
+        return d.root;
     }
 }
