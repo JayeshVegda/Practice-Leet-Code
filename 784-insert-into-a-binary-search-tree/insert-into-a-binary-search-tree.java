@@ -14,39 +14,30 @@
  * }
  */
 class Solution {
-    public void dfs(TreeNode root, int val)
-    {
-        if(root == null) {
-            return;
-        }
-        if(root.val <= val){
-            if(root.right != null) dfs(root.right, val);
-            else {
-                TreeNode nn = new TreeNode(val);
-                root.right = nn;
+    public void dfs(TreeNode root, int val){
+        if(root == null) return;
+
+        if(root.val < val) {
+            if(root.right == null) {
+                root.right = new TreeNode(val);
                 return;
             }
+            dfs(root.right, val);
         }
 
-        if(root.val >= val){
-            if(root.left != null) dfs(root.left, val);
-            else{
-                TreeNode nn = new TreeNode(val);
-                root.left = nn;
+        if(root.val > val){
+            if(root.left == null){
+                root.left = new TreeNode(val);
                 return;
             }
+            dfs(root.left, val);
         }
 
 
     }
-    public TreeNode insertIntoBST(TreeNode root, int val) 
-    {
-        if(root == null){
-            TreeNode nn = new TreeNode(val);
-            return nn;
-        }
+    public TreeNode insertIntoBST(TreeNode root, int val) {
+        if(root == null) return new TreeNode(val);
         dfs(root, val);
         return root;
-
     }
 }
