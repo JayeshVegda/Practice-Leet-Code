@@ -1,5 +1,6 @@
 class Graph{
     int n;
+    boolean res = false;
     List<List<Integer>> adj;
     Graph(int n)
     {
@@ -27,12 +28,36 @@ class Graph{
 
         return false;
     }
+
+    public void bfs(int src, int dest, boolean[] vis){
+        Queue<Integer> q = new LinkedList<>();
+        q.add(src);
+        vis[src] = true;
+
+        while(!q.isEmpty()){
+            int rem = q.poll();
+
+            for(int i : adj.get(rem)){
+                if(!vis[i]){
+                    vis[i] = true;
+                    q.add(i);
+                }
+
+                if(i == dest){
+                    q = new LinkedList<>();
+                    res = true;
+                    break;
+                }
+            }
+        }
+    }
 }
 
 class Solution {
 
 
     public boolean validPath(int n, int[][] edges, int source, int destination) {
+        if(source == destination) return true;
         Graph g = new Graph(n);
         for(int i = 0; i < edges.length; i++){
             int src = edges[i][0];
@@ -40,6 +65,8 @@ class Solution {
             g.adder(src, dec);
         }
 
-        return g.dfs(source, destination, new boolean[n]);
+        g.bfs(source, destination, new boolean[n]);
+
+        return g.res;
     }
 }
