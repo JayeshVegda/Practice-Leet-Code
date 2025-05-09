@@ -1,46 +1,52 @@
-class Solution 
-{   
 
-    public boolean dfs(int node, int[][]g,  boolean[] vis, boolean[] pathVis, boolean[] check)
-    {
-        vis[node] = true;
-        pathVis[node] = true;
-        check[node] = false;
+class Solution {
 
-        for(int neg : g[node])
-        {
-            if(!vis[neg])
-            {
-                if( dfs(neg, g, vis, pathVis, check)) return true;
-            }
-            else if(pathVis[neg]){
-                return true;
-            }
-        }
-
-        check[node] = true;
-        pathVis[node] = false;
-        return false;
-
-        } 
     public List<Integer> eventualSafeNodes(int[][] g) 
     {
         int n = g.length;
-        boolean[] vis = new boolean[n];
-        boolean[] pathVis = new boolean[n];
-        boolean[] check = new boolean[n];
+        List<List<Integer>> adj = new ArrayList<>();
+        for(int i = 0; i < n; i++)
+        {
+           adj.add(new ArrayList<Integer>());
+        }
 
 
-        for(int i = 0; i < n; i++){
-            if(!vis[i]){
-                dfs(i, g, vis, pathVis, check);
+
+        // calling bfs
+        List<Integer> res = new ArrayList<>();
+        Queue<Integer> q = new LinkedList<>();
+        int[] inDeg = new int[n];
+
+        // step 1 : find inDegree
+        for (int u = 0; u < n; u++) {
+            for (int v : g[u]) {
+                adj.get(v).add(u);
+                inDeg[u]++;
             }
         }
 
-        List<Integer> res = new ArrayList<>();
+        // finding node with 0 and adding in queue
         for(int i = 0; i < n; i++){
-            if(check[i] == true) res.add(i);
+            if(inDeg[i] == 0) q.add(i);
         }
+
+
+        // impliment bfs
+        boolean[] safe = new boolean[n];
+        while(!q.isEmpty()){
+            int rem = q.poll();
+            safe[rem] = true;
+
+            for(int neg : adj.get(rem)){
+                inDeg[neg]--;
+                if(inDeg[neg]==0) q.add(neg);
+            }
+        }
+
+        for(int i = 0; i < n; i++){
+            if(safe[i]  ) res.add(i);
+        }
+
 
         return res;
     }
