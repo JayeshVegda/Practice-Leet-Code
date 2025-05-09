@@ -29,8 +29,9 @@ class Graph{
         }
 
         // step 2 : add 0 in queue
+        int count = 0;
         Queue<Integer> q = new LinkedList<>();
-        Stack<Integer> stk = new Stack<>();
+        // Stack<Integer> stk = new Stack<>();
         for(int i = 0; i < n; i++){
             if(inDeg[i] == 0) q.add(i);
         }
@@ -45,11 +46,11 @@ class Graph{
                 if(inDeg[neg] == 0) q.add(neg);
             }
 
-            stk.push(rem);
+            count++;
         }
 
         // step 4 :
-        return stk.size() == n;
+        return count == n;
     }
 
 
